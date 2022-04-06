@@ -1,0 +1,37 @@
+Master
+
+curl -sfL https://get.k3s.io | sh -
+
+systemctl status k3s
+
+which kubectl
+
+cat /var/lib/rancher/k3s/server/node-token > node-token.txt
+
+ls -l /etc/rancher/k3s/k3s.yaml
+chmod 644 /etc/rancher/k3s/k3s.yaml
+
+kubectl get nodes
+kubectl version
+kubectl cluster-info
+
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+
+vim ~/.kube/config
+Заменить 127.0.0.1 на IP адрес мастера
+
+
+Worker
+
+curl -sfL https://get.k3s.io | K3S_URL="https://<IP-master>:6443" K3S_TOKEN="значение нокена" sh -
+
+which kubectl
+
+
+export K3S_KUBECONFIG_MODE="644"
+export K3S_URL="https://192.168.0.56:6443"
+export K3S_TOKEN="K103161ed4f20eedd47456bab597160c8597f66048253859162bd564444b5b45396::server:f9f13f10779a97bbfbdcde4e52995d08"
+
+systemctl status k3s-agent
+
+which kubectl
